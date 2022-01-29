@@ -3,4 +3,4 @@ numpy
 opencv-python
 pdf2image
 pytesseract
-PIL
+Pillow
