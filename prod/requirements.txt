@@ -3,5 +3,4 @@ numpy
 opencv-python
 pdf2image
 pytesseract
-re
 PIL
