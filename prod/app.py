@@ -1,4 +1,3 @@
-from turtle import width
 import streamlit as st
 from extraction_texte import creation_images, decomposition_img
 
