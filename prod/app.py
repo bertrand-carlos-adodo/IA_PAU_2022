@@ -2,8 +2,6 @@ from turtle import width
 import streamlit as st
 from extraction_texte import creation_images, decomposition_img
 
-sidebar = st.sidebar.image('assets/logos/9_1_1.png')
-
 col1, col2 = st.columns([2, 4])
 
 col1.image('assets/logos/cap_logo.png', width = 200)
@@ -16,6 +14,28 @@ with open("texte/description_asso_ia_pau.txt", 'r') as f:
 col2.text("".join(description_asso))
 
 st.markdown('## Equipe')
+
+with open("assets/equipe/Samuel_desc.txt", 'r') as f:
+    description_samuel = f.readlines()
+
+col_1, col_2 = st.columns([4, 2])
+col_2.image('assets/equipe/Samuel.png')
+col_1.text("".join(description_samuel))
+
+with open("assets/equipe/Carlos_desc.txt", 'r') as f:
+    description_carlos = f.readlines()
+
+col_1, col_2 = st.columns([2, 4])
+col_1.image('assets/equipe/Carlos.png')
+col_2.text("".join(description_carlos))
+
+with open("assets/equipe/Pierre_desc.txt", 'r') as f:
+    description_pierre = f.readlines()
+
+col_1, col_2 = st.columns([4, 2])
+col_2.image('assets/equipe/Pierre.png')
+col_1.text("".join(description_pierre))
+
 
 st.markdown('## Sujet')
 

@@ -2,6 +2,9 @@ import numpy as np
 import cv2 as cv
 import os
 from pdf2image import convert_from_path
+import pytesseract
+import re
+from PIL import Image
 
 def creation_images(dossier_destination, dossier_traitement):
 
@@ -16,20 +19,24 @@ def decomposition_img(lien_img):
     #Phase de transformation
     img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     img_blur = cv.blur(img_gray, (33,33), 0)
-    cv.imwrite('pdf/blur_1.jpeg', img_blur)
     ret, thresh = cv.threshold(img_blur, 220, 255, cv.THRESH_BINARY)
     img_canny = cv.Canny(thresh,125,175)
     dilated = cv.dilate(img_canny, (15,15), iterations=65)
-    cv.imwrite('pdf/canny.jpeg', dilated)
     dilated_blur = cv.blur(dilated, (15,15))
 
-    #Détection des contours
-    contours, hierarchies = cv.findContours(dilated_blur, cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
+    #Détection des contours en prenant les plus importants quand y en a trop
+    contours, hierarchies = cv.findContours(dilated_blur, cv.RETR_LIST, cv.CHAIN_APPROX_NONE)
+    if (len(contours)> 25):
+        contours = sorted(contours, key=cv.contourArea, reverse=True)[:25]
 
+    #Sauvegarde pour présentation
     img_contour = cv.drawContours(img.copy(), contours, -1, (0,255,0), 3)
+    cv.imwrite('pdf/blur_1.jpeg', img_blur)
+    cv.imwrite('pdf/canny.jpeg', dilated)
     cv.imwrite('pdf/contour.jpeg', img_contour)
 
     list_img = []
+
     for idx in range(len(contours)):
 
         mask = np.zeros_like(img) # Create mask where white is what we want, black otherwise
@@ -49,3 +56,17 @@ def decomposition_img(lien_img):
             list_img.append(img_gray_out)
     
     return list_img
+
+
+def image_to_csv_tesseract(dossier_traitement, label):
+
+    csv_str = "Text;nbcaracteres;label\n"
+    docs = os.listdir(dossier_traitement)
+
+    for doc in docs:
+        text = pytesseract.image_to_string(Image.open(os.path.join(dossier_traitement, doc)))
+        text = re.sub(r"\s+", " ", text)
+        text = re.sub(r";+", "", text)
+        csv_str += f"{text};{len(text)};{label}\n"
+    
+    return csv_str
