@@ -1,0 +1,8 @@
+streamlit
+numpy
+cv2
+os
+pdf2image
+pytesseract
+re
+PIL
