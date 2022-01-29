@@ -4,8 +4,8 @@ from extraction_texte import creation_images, decomposition_img
 
 col1, col2 = st.columns([2, 4])
 
-col1.image('assets/logos/cap_logo.png', width = 200)
-col1.image('assets/logos/logo_ia_pau.png', width = 200)
+col1.image('assets/logos/cap_logo.png')
+col1.image('assets/logos/logo_ia_pau.png')
 col2.title("IA Pau 4")
 
 with open("texte/description_asso_ia_pau.txt", 'r') as f:

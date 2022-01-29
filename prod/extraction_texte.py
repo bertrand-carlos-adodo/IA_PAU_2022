@@ -58,6 +58,13 @@ def decomposition_img(lien_img):
     return list_img
 
 
+def sauvegarde_decoupe(list_img):
+    compteur = 0
+    for img in list_img:
+        img_lu = cv.imread(img)
+        #cv.imwrite(img_lu,)
+
+
 def image_to_csv_tesseract(dossier_traitement, label):
 
     csv_str = "Text;nbcaracteres;label\n"
