@@ -1,0 +1,10 @@
+Extraction du texte des PDF
+
+
+https://medium.com/analytics-vidhya/table-detection-and-text-extraction-5a2934f61caa
+
+https://towardsdatascience.com/extracting-text-from-scanned-pdf-using-pytesseract-open-cv-cd670ee38052
+
+https://www.datacorner.fr/tesseract-adv/
+
+https://nanonets.com/blog/ocr-with-tesseract/
